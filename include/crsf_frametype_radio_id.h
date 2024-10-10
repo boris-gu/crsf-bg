@@ -22,6 +22,6 @@ typedef struct {
   // uint8_t crc8;
 } crsf_radio_id;
 
-uint8_t crsf_default2radio_id(crsf_default* in_pkt, crsf_radio_id* out_pkt);
+uint8_t crsf_default2radio_id(crsf_default* in_pkt, crsf_radio_id* out_pkt, uint8_t fix_big_endian);
 
-//uint8_t crsf_radio_id2array(crsf_radio_id* in_pkt, uint8_t* out_pkt);
+uint8_t crsf_radio_id2array(crsf_radio_id* in_pkt, uint8_t* out_pkt, uint8_t fix_big_endian);
