@@ -12,6 +12,7 @@ uint8_t crsf_default2command(crsf_default* in_pkt, crsf_command* out_pkt){
   for (uint8_t i = 0; i < out_pkt->command_data_size && i < 10; i++) {
     out_pkt->command_data[i] = in_pkt->payload[3 + i];
   }
+  return 1;
 }
 
 // TODO: Переписань нормально для любых команд
