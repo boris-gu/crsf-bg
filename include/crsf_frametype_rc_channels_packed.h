@@ -10,6 +10,7 @@ typedef struct {
   uint16_t ch[16]; ///< 16 RC channels
 } crsf_rc_channels_packed;
 
+
 /**
  * @brief Get a packet with RC channels from a packet with a raw payload
  * @param in_pkt  Default packet

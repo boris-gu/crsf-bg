@@ -16,6 +16,7 @@ typedef enum {
   READ_CRC8
 } read_status;
 
+
 /**
  * @brief Packet with raw payload
  */
@@ -26,6 +27,7 @@ typedef struct {
   uint8_t payload[CRSF_LEN_PAYLOAD_MAX]; ///< Raw payload
   uint8_t crc8; ///< checksum CRC8 using poly 0xD5
 } crsf_default;
+
 
 /**
  * @brief Parsing received bytes and assembling crsf_default
