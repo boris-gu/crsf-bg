@@ -7,10 +7,10 @@
  * @brief Enum used to track reading of packets
  * 
  * When creating a status variable, equate it with READ_SYNC,
- * because the values [0, CRSF_PAYLOAD_MAX_LEN-1] are used to track payload reading
+ * because the values [0, CRSF_LEN_PAYLOAD_MAX-1] are used to track payload reading
  */
 typedef enum {
-  READ_SYNC = CRSF_PAYLOAD_MAX_LEN,
+  READ_SYNC = CRSF_LEN_PAYLOAD_MAX,
   READ_LEN,
   READ_TYPE,
   READ_CRC8
@@ -21,9 +21,9 @@ typedef enum {
  */
 typedef struct {
   uint8_t sync; ///< CRSF_ADDRESS
-  uint8_t len;  ///< len <= CRSF_LEN_MAX_VALUE
+  uint8_t len;  ///< len <= CRSF_LEN_SECOND_BYTE_MAX
   uint8_t type; ///< CRSF_FRAMETYPE
-  uint8_t payload[CRSF_PAYLOAD_MAX_LEN]; ///< Raw payload
+  uint8_t payload[CRSF_LEN_PAYLOAD_MAX]; ///< Raw payload
   uint8_t crc8; ///< checksum CRC8 using poly 0xD5
 } crsf_default;
 
