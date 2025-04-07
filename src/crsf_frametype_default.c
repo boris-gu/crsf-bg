@@ -13,7 +13,7 @@ uint8_t crsf_parse_char(uint8_t rx_byte, crsf_default* rx_pkt, uint8_t* rx_statu
     }
   // LEN
   } else if (*rx_status == READ_LEN) {
-    if (rx_byte <= CRSF_LEN_MAX_VALUE){
+    if (rx_byte <= CRSF_LEN_SECOND_BYTE_MAX){
       rx_pkt->len = rx_byte;
       *rx_status = READ_TYPE;
     } else {
@@ -38,7 +38,7 @@ uint8_t crsf_parse_char(uint8_t rx_byte, crsf_default* rx_pkt, uint8_t* rx_statu
       crsf_parse_char(rx_byte, rx_pkt, rx_status);
     }
     // PAYLOAD
-  } else if (*rx_status < CRSF_PAYLOAD_MAX_LEN) {
+  } else if (*rx_status < CRSF_LEN_PAYLOAD_MAX) {
     rx_pkt->payload[*rx_status] = rx_byte;
     ++(*rx_status);
     if (*rx_status == (rx_pkt->len) - 2) {

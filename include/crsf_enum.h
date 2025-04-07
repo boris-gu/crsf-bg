@@ -18,9 +18,9 @@ typedef enum {
  * @brief CRSF_LEN
  */
 typedef enum {
-  CRSF_PAYLOAD_MAX_LEN = 60, ///< Maximum payload size
-  CRSF_LEN_MAX_VALUE = (CRSF_PAYLOAD_MAX_LEN + 2), ///< Maximum size recorded in the second byte of packet
-  CRSF_PKT_MAX_LEN = (CRSF_PAYLOAD_MAX_LEN + 4) ///< Maximum packet size
+  CRSF_LEN_PAYLOAD_MAX = 60, ///< Maximum payload size
+  CRSF_LEN_SECOND_BYTE_MAX = (CRSF_LEN_PAYLOAD_MAX + 2), ///< Maximum size recorded in the second byte of packet
+  CRSF_LEN_PKT_MAX = (CRSF_LEN_PAYLOAD_MAX + 4) ///< Maximum packet size
 } crsf_payload;
 
 /**
