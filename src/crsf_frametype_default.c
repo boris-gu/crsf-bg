@@ -23,6 +23,11 @@ uint8_t crsf_parse_char(uint8_t rx_byte, crsf_default* rx_pkt, uint8_t* rx_statu
     // TYPE
   } else if (*rx_status == CRSF_READ_TYPE) {
     if (rx_byte == CRSF_FRAMETYPE_RC_CHANNELS_PACKED ||
+        rx_byte == CRSF_FRAMETYPE_DEVICE_PING ||
+        rx_byte == CRSF_FRAMETYPE_DEVICE_INFO ||
+        rx_byte == CRSF_FRAMETYPE_PARAMETER_SETTINGS_ENTRY ||
+        rx_byte == CRSF_FRAMETYPE_PARAMETER_READ ||
+        rx_byte == CRSF_FRAMETYPE_PARAMETER_WRITE ||
         rx_byte == CRSF_FRAMETYPE_COMMAND ||
         rx_byte == CRSF_FRAMETYPE_RADIO_ID) {
       rx_pkt->type = rx_byte;

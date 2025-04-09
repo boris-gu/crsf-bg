@@ -36,4 +36,3 @@ typedef struct {
 uint8_t crsf_default2command(crsf_default* in_pkt, crsf_command* out_pkt);
 
 uint8_t crsf_command2array(crsf_command* in_pkt, uint8_t* out_pkt);
-

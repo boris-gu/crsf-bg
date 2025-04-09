@@ -6,10 +6,9 @@
  * @brief Channels data (both handset to TX and RX to flight controller)
  */
 typedef struct {
-  uint8_t sync;    ///< CRSF_ADDRESS
-  uint16_t ch[16]; ///< 16 RC channels
+  uint8_t sync;    // CRSF_ADDRESS
+  uint16_t ch[16]; // 16 RC channels
 } crsf_rc_channels_packed;
-
 
 /**
  * @brief Get a packet with RC channels from a packet with a raw payload
