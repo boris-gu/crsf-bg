@@ -1,7 +1,8 @@
-/**
- * https://github.com/ExpressLRS/ExpressLRS/wiki/CRSF-Protocol/aab6bdf4b6828cbb2512755b82f23d1d9e55b854
- */
 #pragma once
+
+#define CRSF_LEN_PAYLOAD_MAX 60                             // Maximum payload size
+#define CRSF_LEN_SECOND_BYTE_MAX (CRSF_LEN_PAYLOAD_MAX + 2) // Maximum size recorded in the second byte of packet
+#define CRSF_LEN_PKT_MAX (CRSF_LEN_PAYLOAD_MAX + 4)         // Maximum packet size
 
 /**
  * @brief CRSF_ADDRESS, first byte in packet
@@ -15,19 +16,15 @@ typedef enum {
 } crsf_address;
 
 /**
- * @brief CRSF_LEN
- */
-typedef enum {
-  CRSF_LEN_PAYLOAD_MAX = 60, ///< Maximum payload size
-  CRSF_LEN_SECOND_BYTE_MAX = (CRSF_LEN_PAYLOAD_MAX + 2), ///< Maximum size recorded in the second byte of packet
-  CRSF_LEN_PKT_MAX = (CRSF_LEN_PAYLOAD_MAX + 4) ///< Maximum packet size
-} crsf_payload;
-
-/**
  * @brief CRSF_FRAMETYPE, third byte in packet
  */
 typedef enum {
   CRSF_FRAMETYPE_RC_CHANNELS_PACKED = 0x16,
+  CRSF_FRAMETYPE_DEVICE_PING = 0x28,
+  CRSF_FRAMETYPE_DEVICE_INFO = 0x29,
+  CRSF_FRAMETYPE_PARAMETER_SETTINGS_ENTRY = 0x2B,
+  CRSF_FRAMETYPE_PARAMETER_READ = 0x2C,
+  CRSF_FRAMETYPE_PARAMETER_WRITE = 0x2D,
   CRSF_FRAMETYPE_COMMAND = 0x32,
   CRSF_FRAMETYPE_RADIO_ID = 0x3A
 } crsf_frametype; 

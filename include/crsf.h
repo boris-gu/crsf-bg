@@ -1,8 +1,9 @@
 /**
  * @file
+ * @author Boris Gubanov
  * @brief Implementation of the CRSF protocol
  * 
- * https://github.com/ExpressLRS/ExpressLRS/wiki/CRSF-Protocol/0defcc2aeb073ddcce9b7c9a03a5b7b3d018c727
+ * https://github.com/ExpressLRS/ExpressLRS/wiki/CRSF-Protocol/aab6bdf4b6828cbb2512755b82f23d1d9e55b854
  * https://github.com/crsf-wg/crsf/wiki
  * @version 1.0.0
  */
