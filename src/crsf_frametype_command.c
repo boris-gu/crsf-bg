@@ -1,32 +1,38 @@
 #include "crsf_frametype_command.h"
 
-uint8_t crsf_default2command(crsf_default* in_pkt, crsf_command* out_pkt){
-  if (in_pkt->type != CRSF_FRAMETYPE_COMMAND) {
-    return 0;
-  }
-  out_pkt->sync = in_pkt->sync;
-  out_pkt->ext_dest = in_pkt->payload[0];
-  out_pkt->ext_src = in_pkt->payload[1];
-  out_pkt->command_type = in_pkt->payload[2];
-  out_pkt->command_data_size = in_pkt->len - 2 - 5; // - type, [ext_dest, ext_src, CRSF_COMMAND_SUBCMD_RX, CRSF_COMMAND_SUBCMD_GENERAL, crc8_ba], crc8
-  for (uint8_t i = 0; i < out_pkt->command_data_size && i < 10; i++) {
-    out_pkt->command_data[i] = in_pkt->payload[3 + i];
-  }
-  return 1;
+// TODO: Проверить на реальном железе, получить эти пакеты от FC и Lua скрипта
+//  CRSF_COMMAND_SUBCMD_RX - CRSF_COMMAND_SUBCMD_RX_BIND
+uint8_t crsf_cmd_rx_bind2array(uint8_t sync,
+                               uint8_t ext_dest,
+                               uint8_t ext_src,
+                               uint8_t* out_pkt) {
+  out_pkt[0] = sync; // TODO: Определить, всегда 0xC8 или же один из CRSF_ADDRESS
+  out_pkt[1] = 0x07;
+  out_pkt[2] = CRSF_FRAMETYPE_COMMAND;
+  out_pkt[3] = ext_dest;
+  out_pkt[4] = ext_src;
+  out_pkt[5] = CRSF_COMMAND_SUBCMD_RX;
+  out_pkt[6] = CRSF_COMMAND_SUBCMD_RX_BIND;
+  out_pkt[7] = crc8_ba_calc(out_pkt + 2, 5);
+  out_pkt[8] = crc8_d5_calc(out_pkt + 2, 6);
+  return 0x09;
 }
 
-// TODO: Переписань нормально для любых команд
-uint8_t crsf_command2array(crsf_command* in_pkt, uint8_t* out_pkt) {
-  out_pkt[0] = in_pkt->sync;
-  out_pkt[1] = 0x08;
+//  CRSF_COMMAND_SUBCMD_RX - COMMAND_MODEL_SELECT_ID
+uint8_t crsf_cmd_model_select_id(uint8_t sync,
+                                 uint8_t ext_dest,
+                                 uint8_t ext_src,
+                                 uint8_t model_id,
+                                 uint8_t* out_pkt) {
+  out_pkt[0] = sync; // TODO: Определить, всегда 0xC8 или же один из CRSF_ADDRESS
+  out_pkt[1] = 0x07;
   out_pkt[2] = CRSF_FRAMETYPE_COMMAND;
-  out_pkt[3] = in_pkt->ext_dest;
-  out_pkt[4] = in_pkt->ext_src;
-
-  out_pkt[5] = in_pkt->command_type;
-  out_pkt[6] = in_pkt->command_id;
-  out_pkt[7] = in_pkt->command_data[0]; // FIXME: данные могут быть больше  1 байта
+  out_pkt[3] = ext_dest; // XXX: Может, всегда CRSF_ADDRESS_CRSF_TRANSMITTER?
+  out_pkt[4] = ext_src;  // XXX: Может, всегда CRSF_ADDRESS_RADIO_TRANSMITTER?
+  out_pkt[5] = CRSF_COMMAND_SUBCMD_RX;
+  out_pkt[6] = CRSF_COMMAND_MODEL_SELECT_ID;
+  out_pkt[7] = model_id;
   out_pkt[8] = crc8_ba_calc(out_pkt + 2, 6);
   out_pkt[9] = crc8_d5_calc(out_pkt + 2, 7);
-  return out_pkt[1] + 2;
+  return 0x0A;
 }

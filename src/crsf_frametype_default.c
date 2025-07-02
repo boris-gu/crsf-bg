@@ -20,9 +20,10 @@ uint8_t crsf_parse_char(uint8_t rx_byte, crsf_default* rx_pkt, uint8_t* rx_statu
       *rx_status = CRSF_READ_SYNC;
       crsf_parse_char(rx_byte, rx_pkt, rx_status);
     }
-    // TYPE
+  // TYPE
   } else if (*rx_status == CRSF_READ_TYPE) {
-    if (rx_byte == CRSF_FRAMETYPE_RC_CHANNELS_PACKED ||
+    if (rx_byte == CRSF_FRAMETYPE_LINK_STATISTICS ||
+        rx_byte == CRSF_FRAMETYPE_RC_CHANNELS_PACKED ||
         rx_byte == CRSF_FRAMETYPE_DEVICE_PING ||
         rx_byte == CRSF_FRAMETYPE_DEVICE_INFO ||
         rx_byte == CRSF_FRAMETYPE_PARAMETER_SETTINGS_ENTRY ||
@@ -36,14 +37,14 @@ uint8_t crsf_parse_char(uint8_t rx_byte, crsf_default* rx_pkt, uint8_t* rx_statu
       *rx_status = CRSF_READ_SYNC;
       crsf_parse_char(rx_byte, rx_pkt, rx_status);
     }
-    // PAYLOAD
+  // PAYLOAD
   } else if (*rx_status < CRSF_LEN_PAYLOAD_MAX) {
     rx_pkt->payload[*rx_status] = rx_byte;
     ++(*rx_status);
     if (*rx_status == (rx_pkt->len) - 2) {
       *rx_status = CRSF_READ_CRC8;
     }
-    // CRC8
+  // CRC8
   } else if (*rx_status == CRSF_READ_CRC8) {
     *rx_status = CRSF_READ_SYNC;
     if (rx_byte == crc8_d5_calc((uint8_t*)rx_pkt + 2, rx_pkt->len - 1)) {
@@ -77,7 +78,6 @@ uint8_t crc8_d5_calc(uint8_t* array, uint8_t len) {
       0x20, 0xF5, 0x5F, 0x8A, 0xDE, 0x0B, 0xA1, 0x74, 0x09, 0xDC, 0x76, 0xA3, 0xF7, 0x22, 0x88, 0x5D,
       0xD6, 0x03, 0xA9, 0x7C, 0x28, 0xFD, 0x57, 0x82, 0xFF, 0x2A, 0x80, 0x55, 0x01, 0xD4, 0x7E, 0xAB,
       0x84, 0x51, 0xFB, 0x2E, 0x7A, 0xAF, 0x05, 0xD0, 0xAD, 0x78, 0xD2, 0x07, 0x53, 0x86, 0x2C, 0xF9};
-  // uint8_t *type_payload = &tx.packet[2];
   uint8_t result = 0;
   // for (uint8_t i = 0; i < (*tx.len - 1); i++)
   // TODO: ПРОВЕРИТЬ
@@ -105,7 +105,6 @@ uint8_t crc8_ba_calc(uint8_t* array, uint8_t len) {
       0xD0, 0x6A, 0x1E, 0xA4, 0xF6, 0x4C, 0x38, 0x82, 0x9C, 0x26, 0x52, 0xE8, 0xBA, 0x00, 0x74, 0xCE,
       0xC2, 0x78, 0x0C, 0xB6, 0xE4, 0x5E, 0x2A, 0x90, 0x8E, 0x34, 0x40, 0xFA, 0xA8, 0x12, 0x66, 0xDC,
       0x5A, 0xE0, 0x94, 0x2E, 0x7C, 0xC6, 0xB2, 0x08, 0x16, 0xAC, 0xD8, 0x62, 0x30, 0x8A, 0xFE, 0x44};
-  // uint8_t *type_payload = &tx.packet[2];
   uint8_t result = 0;
   for (uint8_t i = 0; i < len; i++) {
     result = crc8_table[result ^ array[i]];

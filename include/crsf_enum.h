@@ -4,9 +4,7 @@
 #define CRSF_LEN_SECOND_BYTE_MAX (CRSF_LEN_PAYLOAD_MAX + 2) // Maximum size recorded in the second byte of packet
 #define CRSF_LEN_PKT_MAX (CRSF_LEN_PAYLOAD_MAX + 4)         // Maximum packet size
 
-/**
- * @brief CRSF_ADDRESS, first byte in packet
- */
+// CRSF_ADDRESS, first byte in packet
 typedef enum {
   CRSF_ADDRESS_FLIGHT_CONTROLLER = 0xC8,
   CRSF_ADDRESS_RADIO_TRANSMITTER = 0xEA,
@@ -15,10 +13,9 @@ typedef enum {
   CRSF_ADDRESS_ELRS_LUA = 0xEF
 } crsf_address;
 
-/**
- * @brief CRSF_FRAMETYPE, third byte in packet
- */
+// CRSF_FRAMETYPE, third byte in packet
 typedef enum {
+  CRSF_FRAMETYPE_LINK_STATISTICS = 0x14,
   CRSF_FRAMETYPE_RC_CHANNELS_PACKED = 0x16,
   CRSF_FRAMETYPE_DEVICE_PING = 0x28,
   CRSF_FRAMETYPE_DEVICE_INFO = 0x29,
