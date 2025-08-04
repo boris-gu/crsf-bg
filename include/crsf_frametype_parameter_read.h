@@ -14,6 +14,4 @@ typedef struct {
   uint8_t chunk_index;
 } crsf_parameter_read;
 
-uint8_t crsf_default2parameter_read(crsf_default* in_pkt, crsf_parameter_read* out_pkt);
-
-uint8_t crsf_parameter_read2array(crsf_parameter_read* in_pkt, uint8_t* out_pkt);
+uint8_t crsf_parameter_read_array(uint8_t field_index, uint8_t chunk_index, uint8_t* out_pkt);

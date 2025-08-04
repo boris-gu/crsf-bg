@@ -22,4 +22,5 @@ typedef struct {
 
 uint8_t crsf_default2link_statistics(crsf_default* in_pkt, crsf_link_statistics* out_pkt);
 
-uint8_t crsf_link_statistics2array(crsf_link_statistics* in_pkt, uint8_t* out_pkt);
+// TODO: Написать для использования с приемником
+// uint8_t crsf_link_statistics2array(crsf_link_statistics* in_pkt, uint8_t* out_pkt);

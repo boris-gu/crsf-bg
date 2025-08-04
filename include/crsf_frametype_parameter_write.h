@@ -16,6 +16,18 @@ typedef struct {
   uint8_t value[CRSF_LEN_PARAMETER_WRITE_VALUE_MAX];
 } crsf_parameter_write;
 
-uint8_t crsf_default2parameter_write(crsf_default* in_pkt, crsf_parameter_write* out_pkt);
+uint8_t crsf_parameter_write_UINT8_array(uint8_t field_index, uint8_t value, uint8_t* out_pkt);
 
-uint8_t crsf_parameter_write2array(crsf_parameter_write* in_pkt, uint8_t* out_pkt);
+uint8_t crsf_parameter_write_INT8_array(uint8_t field_index, int8_t value, uint8_t* out_pkt);
+
+uint8_t crsf_parameter_write_UINT16_array(uint8_t field_index, uint16_t value, uint8_t* out_pkt);
+
+uint8_t crsf_parameter_write_INT16_array(uint8_t field_index, int16_t value, uint8_t* out_pkt);
+
+uint8_t crsf_parameter_write_FLOAT_array(uint8_t field_index, int32_t value, uint8_t* out_pkt);
+
+uint8_t crsf_parameter_write_SELECT_array(uint8_t field_index, char * value, uint8_t len, uint8_t* out_pkt);
+
+uint8_t crsf_parameter_write_STRING_array(uint8_t field_index, char * value, uint8_t len, uint8_t* out_pkt);
+
+// XXX: Нужны ли остальные settings_entry_type?

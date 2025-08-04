@@ -5,7 +5,7 @@
 
 #include "crsf_frametype_default.h"
 
-#define CRSF_LEN_DEVICE_INFO_NAME_MAX (CRSF_LEN_PAYLOAD_MAX - 16)
+#define CRSF_LEN_DEVICE_INFO_NAME_MAX 15
 
 typedef struct {
   uint8_t sync;
@@ -21,5 +21,3 @@ typedef struct {
 } crsf_device_info;
 
 uint8_t crsf_default2device_info(crsf_default* in_pkt, crsf_device_info* out_pkt);
-
-uint8_t crsf_device_info2array(crsf_device_info* in_pkt, uint8_t* out_pkt);

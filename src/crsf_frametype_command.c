@@ -2,7 +2,7 @@
 
 // TODO: Проверить на реальном железе, получить эти пакеты от FC и Lua скрипта
 //  CRSF_COMMAND_SUBCMD_RX - CRSF_COMMAND_SUBCMD_RX_BIND
-uint8_t crsf_cmd_rx_bind2array(uint8_t sync,
+uint8_t crsf_cmd_rx_bind_array(uint8_t sync,
                                uint8_t ext_dest,
                                uint8_t ext_src,
                                uint8_t* out_pkt) {
@@ -19,13 +19,13 @@ uint8_t crsf_cmd_rx_bind2array(uint8_t sync,
 }
 
 //  CRSF_COMMAND_SUBCMD_RX - COMMAND_MODEL_SELECT_ID
-uint8_t crsf_cmd_model_select_id(uint8_t sync,
+uint8_t crsf_cmd_model_select_id_array(uint8_t sync,
                                  uint8_t ext_dest,
                                  uint8_t ext_src,
                                  uint8_t model_id,
                                  uint8_t* out_pkt) {
   out_pkt[0] = sync; // TODO: Определить, всегда 0xC8 или же один из CRSF_ADDRESS
-  out_pkt[1] = 0x07;
+  out_pkt[1] = 0x08;
   out_pkt[2] = CRSF_FRAMETYPE_COMMAND;
   out_pkt[3] = ext_dest; // XXX: Может, всегда CRSF_ADDRESS_CRSF_TRANSMITTER?
   out_pkt[4] = ext_src;  // XXX: Может, всегда CRSF_ADDRESS_RADIO_TRANSMITTER?

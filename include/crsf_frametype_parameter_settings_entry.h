@@ -5,37 +5,88 @@
 
 #include "crsf_frametype_default.h"
 
-#define CRSF_LEN_PARAMETER_SETTINGS_ENTRY_LABEL_MAX (CRSF_LEN_PAYLOAD_MAX - 10)
-
-// Low 7 bits & high bit(hidden)
-typedef enum {
-  CRSF_PARAM_TYPE_UINT8 = 0x00,
-  CRSF_PARAM_TYPE_INT8 = 0x01,
-  CRSF_PARAM_TYPE_UINT16 = 0x02,
-  CRSF_PARAM_TYPE_INT16 = 0x03,
-  // 0x04 - 0x07 = larger ints??
-  CRSF_PARAM_TYPE_FLOAT = 0x08,  // 4 byte
-  CRSF_PARAM_TYPE_SELECT = 0x09,
-  CRSF_PARAM_TYPE_STRING = 0x0A,
-  CRSF_PARAM_TYPE_FOLDER = 0x0B,
-  CRSF_PARAM_TYPE_INFO = 0x0C,
-  CRSF_PARAM_TYPE_COMMAND = 0x0D,
-  CRSF_PARAM_TYPE_VTX = 0x0F,  // ???
-  CRSF_PARAM_TYPE_HIDDEN = 128  // 0b10000000 - if set, parameter is not to be displayed by the destination
-} crsf_parameter_settings_entry_type;
+// XXX: Взято наугад
+#define CRSF_LEN_PARAMETER_SETTINGS_ENTRY_SOME_CHAR 15
 
 typedef struct {
+  uint8_t val_current;
+  uint8_t val_min;
+  uint8_t val_max;
+  char units[CRSF_LEN_PARAMETER_SETTINGS_ENTRY_SOME_CHAR];
+} crsf_settings_entry_value_uint8;
+
+typedef struct {
+  int8_t val_current;
+  int8_t val_min;
+  int8_t val_max;
+  char units[CRSF_LEN_PARAMETER_SETTINGS_ENTRY_SOME_CHAR];
+} crsf_settings_entry_value_int8;
+
+typedef struct {
+  uint16_t val_current;
+  uint16_t val_min;
+  uint16_t val_max;
+  char units[CRSF_LEN_PARAMETER_SETTINGS_ENTRY_SOME_CHAR];
+} crsf_settings_entry_value_uint16;
+
+typedef struct {
+  int16_t val_current;
+  int16_t val_min;
+  int16_t val_max;
+  char units[CRSF_LEN_PARAMETER_SETTINGS_ENTRY_SOME_CHAR];
+} crsf_settings_entry_value_int16;
+
+typedef struct {
+  int32_t val_current;
+  int32_t val_min;
+  int32_t val_max;
+  uint8_t precision;
+  uint32_t step;
+  char units[CRSF_LEN_PARAMETER_SETTINGS_ENTRY_SOME_CHAR];
+} crsf_settings_entry_value_float;
+
+typedef struct {
+  uint8_t val_current;
+  char option[CRSF_LEN_PAYLOAD_MAX]; // XXX: Не факт, что хватит всегда!
+  char units[CRSF_LEN_PARAMETER_SETTINGS_ENTRY_SOME_CHAR];
+} crsf_settings_entry_value_select;
+
+typedef struct {
+  char current_val[CRSF_LEN_PAYLOAD_MAX];
+  uint8_t length_max;
+} crsf_settings_entry_value_string;
+
+typedef struct {
+  char name[CRSF_LEN_PARAMETER_SETTINGS_ENTRY_SOME_CHAR];
+} crsf_settings_entry_value_folder;
+
+typedef struct {
+  char display[CRSF_LEN_PAYLOAD_MAX];
+} crsf_settings_entry_value_info;
+
+typedef struct {
+  crsf_parameter_settings_entry_cmd_step step;
+  uint8_t timeout;
+  char info[CRSF_LEN_PARAMETER_SETTINGS_ENTRY_SOME_CHAR];
+} crsf_settings_entry_value_command;
+
+typedef struct {
+} crsf_settings_entry_value_vtx;
+
+// TODO: В документации неверное описание!
+//       Проверить на железе!!!
+typedef struct {
   uint8_t sync;
+  uint8_t len;
   uint8_t ext_dest;
   uint8_t ext_src;
 
   uint8_t field_index;
   uint8_t remaining_chunks;
   uint8_t parent;
-  uint8_t type;
-  char label[CRSF_LEN_PARAMETER_SETTINGS_ENTRY_LABEL_MAX];
+  crsf_parameter_settings_entry_type type;
+  char label[CRSF_LEN_PAYLOAD_MAX];
+  uint8_t value[CRSF_LEN_PAYLOAD_MAX];
 } crsf_parameter_settings_entry;
 
-uint8_t crsf_default2parameter_settings_entry(crsf_default* in_pkt, crsf_parameter_settings_entry* out_pkt);
-
-uint8_t crsf_parameter_settings_entry2array(crsf_parameter_settings_entry* in_pkt, uint8_t* out_pkt);
+// uint8_t crsf_default2parameter_settings_entry(crsf_default* in_pkt, crsf_parameter_settings_entry* out_pkt);
