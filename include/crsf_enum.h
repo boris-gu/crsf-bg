@@ -41,30 +41,3 @@ typedef enum {
   CRSF_COMMAND_SUBCMD_GENERAL_CRSF_SPEED_PROPOSAL = 0x70,
   CRSF_COMMAND_SUBCMD_GENERAL_CRSF_SPEED_RESPONSE = 0x71
 } crsf_command_subcmd_general_cmd ;
-
-// Low 7 bits & high bit(hidden)
-typedef enum {
-  CRSF_PARAM_TYPE_UINT8 = 0x00,
-  CRSF_PARAM_TYPE_INT8 = 0x01,
-  CRSF_PARAM_TYPE_UINT16 = 0x02,
-  CRSF_PARAM_TYPE_INT16 = 0x03,
-  // 0x04 - 0x07 = larger ints??
-  CRSF_PARAM_TYPE_FLOAT = 0x08,  // 4 byte
-  CRSF_PARAM_TYPE_SELECT = 0x09,
-  CRSF_PARAM_TYPE_STRING = 0x0A,
-  CRSF_PARAM_TYPE_FOLDER = 0x0B,
-  CRSF_PARAM_TYPE_INFO = 0x0C,
-  CRSF_PARAM_TYPE_COMMAND = 0x0D,
-  CRSF_PARAM_TYPE_VTX = 0x0F,  // ???
-  CRSF_PARAM_TYPE_HIDDEN = 128  // 0b10000000 - if set, parameter is not to be displayed by the destination
-} crsf_parameter_settings_entry_type;
-
-typedef enum {
-  CRSF_PARAM_CMD_STEP_IDLE,
-  CRSF_PARAM_CMD_STEP_CLICK,
-  CRSF_PARAM_CMD_STEP_EXECUTING,
-  CRSF_PARAM_CMD_STEP_ASKCONFIRM,
-  CRSF_PARAM_CMD_STEP_CONFIRMED,
-  CRSF_PARAM_CMD_STEP_CANCEL,
-  CRSF_PARAM_CMD_STEP_QUERY
-} crsf_parameter_settings_entry_cmd_step;
