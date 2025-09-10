@@ -5,7 +5,7 @@
  * 
  * https://github.com/ExpressLRS/ExpressLRS/wiki/CRSF-Protocol/aab6bdf4b6828cbb2512755b82f23d1d9e55b854
  * https://github.com/crsf-wg/crsf/wiki
- * @version 10.09.25
+ * @version 2025.09.10
  */
 #pragma once
 
